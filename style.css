@@ -192,6 +192,7 @@ main::after {
     padding: 2rem;
     height: 100%;
     overflow: hidden;
+
 }
 
 .about__section .video__container {
@@ -232,10 +233,12 @@ main::after {
 .scroll-section {
     overflow: hidden;
     position: relative;
+    height: 100vh;
 }
 
 .scroll-section .wrapper {
-    height: 100vh;
+    height: 100%;
+    position: relative;
 }
 
 .scroll-section .list {

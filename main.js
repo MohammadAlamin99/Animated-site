@@ -18,7 +18,7 @@ function setAnimationScroll() {
         scrollTrigger: {
             trigger: "#bg_city",
             start: "top top",
-            end: "+=" + bgCity.scrollHeight,
+            end: "+=100%",
             scrub: true,
             pin: true,
         }
@@ -65,6 +65,7 @@ function setAnimationScroll() {
 }
 
 // about section animation
+
 const aboutSection = document.querySelector('.about__section')
 gsap.to('.video__container', {
     scale: 2,
@@ -96,17 +97,11 @@ setInterval(() => {
 }, 500);
 
 
-
 // vertical section
-const verticalSection = document.querySelector('.scroll-section');
-const wrapper = document.querySelector(".wrapper");
-const items = wrapper.querySelectorAll(".item");
 
-items.forEach((item, index) => {
-    if (index !== 0) {
-        gsap.set(item, { yPercent: 100 })
-    }
-});
+const verticalSection = document.querySelector('.scroll-section');
+const items = gsap.utils.toArray('.wrapper .item');
+gsap.set(items.slice(1), { yPercent: 100 });
 
 const verticalTimeline = gsap.timeline({
     scrollTrigger: {
@@ -114,21 +109,16 @@ const verticalTimeline = gsap.timeline({
         start: 'top top',
         end: `+=${items.length * 100}%`,
         scrub: 1,
-        invalidateOnRefresh: true,
-        pin:true,
+        pin: true,
         markers: true,
     },
-    defaults: { ease: "none" },
+    defaults: { ease: "none" }
 });
 
-items.forEach((item, index) => {
-    verticalTimeline.to(item, {
-        scale: 0.9,
-        borderRadius: "10px",
-    });
-    verticalTimeline.to(
-        items[index + 1],
-        { yPercent: 0 },
-        "<"
-    )
+items.forEach((item, i) => {
+    if (i < items.length - 1) {
+        verticalTimeline
+            .to(item, { scale: 0.9, borderRadius: "10px" })
+            .to(items[i + 1], { yPercent: 0 }, "<");
+    }
 });

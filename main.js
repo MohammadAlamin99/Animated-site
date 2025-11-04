@@ -65,12 +65,70 @@ function setAnimationScroll() {
 }
 
 // about section animation
+const aboutSection = document.querySelector('.about__section')
 gsap.to('.video__container', {
     scale: 2,
     scrollTrigger: {
-        trigger: '.about__section',
+        trigger: aboutSection,
         start: 'center top',
-        end: '+=1000',
+        end: '+=' + aboutSection.scrollHeight,
         scrub: 1,
     }
+});
+gsap.to('.about_title', {
+    scale: 1,
+    transformOrigin: 'center center',
+    scrollTrigger: {
+        trigger: aboutSection,
+        start: 'center top',
+        end: '+=' + aboutSection.scrollHeight,
+        scrub: 1,
+    }
+});
+
+const texts = ["BREATH", "MOVIES", "TRAVEL"];
+const title = document.querySelector(".about_title");
+let index = 0;
+
+setInterval(() => {
+    index = (index + 1) % texts.length;
+    title.textContent = texts[index];
+}, 500);
+
+
+
+// vertical section
+const verticalSection = document.querySelector('.scroll-section');
+const wrapper = document.querySelector(".wrapper");
+const items = wrapper.querySelectorAll(".item");
+
+items.forEach((item, index) => {
+    if (index !== 0) {
+        gsap.set(item, { yPercent: 100 })
+    }
+});
+
+const verticalTimeline = gsap.timeline({
+    scrollTrigger: {
+        trigger: verticalSection,
+        start: 'top top',
+        end: `+=${items.length * 100}%`,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        pin:true,
+        markers: true,
+    },
+    defaults: { ease: "none" },
+});
+
+items.forEach((item, index) => {
+    verticalTimeline.to(item, {
+        scale: 0.9,
+        borderRadius: "10px",
+    });
+    verticalTimeline.to(
+        items[index + 1],
+        { yPercent: 0 },
+        "<"
+    )
 });

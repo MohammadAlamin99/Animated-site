@@ -72,6 +72,5 @@ gsap.to('.video__container', {
         start: 'center top',
         end: '+=1000',
         scrub: 1,
-        markers: true
     }
 });

@@ -191,6 +191,7 @@ main::after {
     background: #fff;
     padding: 2rem;
     height: 100%;
+    overflow: hidden;
 }
 
 .about__section .video__container {
